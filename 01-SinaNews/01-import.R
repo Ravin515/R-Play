@@ -1,40 +1,28 @@
 library(mongolite)
+# news：包含除了回复正文以外的所有变量 ----
+# 使用1）iterate模式读取，2）使用rapply进行展平，速度比传统方式提高很多
 conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
-
-# 获得所有news_id的唯一值
-system.time({
-news_id <- conn$aggregate(pipeline = '[
-    {"$group":{"_id":"$news_id", "n":{"$sum":1}}}
-]')
-})
-setnames(setDT(news_id), names(news_id), c("nid", "n"))
-nids <- news_id$nid
-
-# 按照nid逐个读入
-n <- 1e1
-N <- as.integer(length(nids) / n + 1)
-r.news <- data.table()
-for (i in (1:1)) {
-    print(sprintf('i:%s', i))
-    start <- (i - 1) * n + 1
-    end <- min(c(i * n, length(nids)))
-    l <- list()
-    for (j in start:end) {
-        nid <- nids[j]
-        query <- sprintf('{"news_id": "%s"}', nid)
-        field <- '{"_id":0, "pic":0}'
-        #l[[j]] <- conn$find(query = query, field = field)
-        #dt.name <- str_c("dt", i)
-        #assign(dt.name,
-                #value = rbindlist(l, use.names = TRUE, fill = TRUE))
-        #r.news <- rbindlist(list(r.news, get(dt.name)))
-
-        dt <- conn$find(query = query, field = field) %>% setDT()
-    }
+iter <- conn$iterate(query = '{}', field = '{"_id":0, "reply.reply_content":0}')
+flat_list <- function(nest.list) {
+    lapply(rapply(nest.list, enquote, how = "unlist"), eval)
 }
-rm(i, j, l, n, N, query, field, start, end, nid, dt.name)
+news <- data.table()
+while (!is.null(res <- iter$batch(size = 1e5))) {
+    chunk <- lapply(res, flat_list) %>% rbindlist(use.names = T, fill = T)
+    news <- rbindlist(list(news, chunk), use.names = T, fill = T)
+}
+rm(iter, res, chunk)
 
-z <- conn$find(query = '{"news_id":"31,1,7239482"}', field = '{"_id":0, "news_id":1, "reply.replynum":1, "reply.hotness":1}') %>% setDT()
-zdt <- as.data.table(z)
 
-str(zdt)
+# reply：包含 news_id 与 reply 正文 ----
+conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
+iter <- conn$iterate(query = '{}', field = '{"_id":0, "reply.reply_content":1, "news_id":1}')
+reply <- data.table()
+while (!is.null(res <- iter$batch(size = 1e5))) {
+    chunk <- rbindlist(lapply(res, `[[`, "reply"))[["reply_content"]] %>% rbindlist(use.names = T, fill = T)
+    reply <- rbindlist(list(reply, chunk), use.names = T, fill = T)
+}
+rm(iter, res, chunk)
+
+
+

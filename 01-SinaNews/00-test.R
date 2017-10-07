@@ -17,43 +17,18 @@ system.time({
 library(mongolite)
 conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
 
-iter <- conn$iterate(query = '{}', field = '{"_id":0, "cmt_id":1, "channel":1, "reply":1, "title":1, "type":1, "time":1, "news_id":1, "source":1, "author":1, "keywords":1, "tags":1, "news_create_time":1, "news_publish_time":1, "url":1, "content":1}')
-res <- iter$batch(size = 1e3)
-channel <- rbindlist(lapply(res, `[[`, "channel"), use.names = T, fill = T, idcol = "rid")
-cmt_id <- rbindlist(lapply(res, `[[`, "cmt_id"), use.names = T, fill = T, idcol = "rid")
-
-get_other <- function(x) {
-    x[c("title", "time", "news_id", "source", "author", "keywords", "tags", "news_create_time", "news_publish_time", "url", "content")] %>% as.data.table()
+iter <- conn$iterate(query = '{}', field = '{"_id":0, "reply.reply_content":0}')
+flat_list <- function(nest.list) {
+    lapply(rapply(nest.list, enquote, how = "unlist"), eval)
 }
-other <- lapply(res, get_other) %>% rbindlist(use.names = T, fill = T, idcol = "rid")
-
-get_replycontent <- function(x) {
-    x[["reply"]][["reply_content"]]
-}
-reply <- lapply(res, get_replycontent)
-
-lapply(seq_along(reply), function(i) {is.na(reply[[i]])})
-
-#z <- res[[14]][["reply"]][["reply_content"]]
-#rbindlist(reply, use.names = T, fill = T)
-z <- lapply(reply, na.omit)
-
-
-flatlist <- function(mylist) {
-    lapply(rapply(mylist, enquote, how = "unlist"), eval)
+news <- data.table()
+while (!is.null(res <- iter$batch(size = 1e5))) {
+    chunk <- lapply(res, flat_list) %>% rbindlist(use.names = T, fill = T)
+    news <- rbindlist(list(news, chunk), use.names = T, fill = T)
 }
 
-z <- lapply(res, flatlist) %>% rbindlist(use.names = T, fill = T)
 
 
-get_replynum <- function(x) {
-    x[["reply"]][c("replynum", "hotness", "qreply")]
-}
-replynum <- lapply(res, get_replynum) %>% rbindlist(use.names = T, fill = T, idcol = "rid")
-
-
-
-
-l <- list(a = 1, b = 8)
-
-l[c("a", "b")]
+l <- list(a = 1, b = list(c = 1, d = 4))
+rapply(l, list, how = "unlist")
+lapply(rapply(l, enquote, how = "unlist"), eval) %>% setDT()

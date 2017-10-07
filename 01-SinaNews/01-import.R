@@ -1,5 +1,5 @@
 library(mongolite)
-conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews')
+conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
 
 # 获得所有news_id的唯一值
 system.time({
@@ -23,11 +23,13 @@ for (i in (1:1)) {
         nid <- nids[j]
         query <- sprintf('{"news_id": "%s"}', nid)
         field <- '{"_id":0, "pic":0}'
-        l[[j]] <- conn$find(query = query, field = field)
-        dt.name <- str_c("dt", i)
-        assign(dt.name,
-                value = rbindlist(l, use.names = TRUE, fill = TRUE))
-        r.news <- rbindlist(list(r.news, get(dt.name)))
+        #l[[j]] <- conn$find(query = query, field = field)
+        #dt.name <- str_c("dt", i)
+        #assign(dt.name,
+                #value = rbindlist(l, use.names = TRUE, fill = TRUE))
+        #r.news <- rbindlist(list(r.news, get(dt.name)))
+
+        dt <- conn$find(query = query, field = field) %>% setDT()
     }
 }
 rm(i, j, l, n, N, query, field, start, end, nid, dt.name)

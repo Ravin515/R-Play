@@ -21,19 +21,37 @@ iter <- conn$iterate(query = '{}', field = '{"_id":0, "cmt_id":1, "channel":1, "
 res <- iter$batch(size = 1e3)
 channel <- rbindlist(lapply(res, `[[`, "channel"), use.names = T, fill = T, idcol = "rid")
 cmt_id <- rbindlist(lapply(res, `[[`, "cmt_id"), use.names = T, fill = T, idcol = "rid")
-other <- res[]
 
-flat_reply <- function(x) {
+get_other <- function(x) {
+    x[c("title", "time", "news_id", "source", "author", "keywords", "tags", "news_create_time", "news_publish_time", "url", "content")] %>% as.data.table()
+}
+other <- lapply(res, get_other) %>% rbindlist(use.names = T, fill = T, idcol = "rid")
+
+get_replycontent <- function(x) {
     x[["reply"]][["reply_content"]]
 }
-reply <- sapply(res, flat_reply) %>% lapply(rbindlist, fill = T, use.names = T) %>% rbindlist(fill = T, use.names = T, idcol = "rid")
+reply <- lapply(res, get_replycontent)
+
+lapply(seq_along(reply), function(i) {is.na(reply[[i]])})
+
+#z <- res[[14]][["reply"]][["reply_content"]]
+#rbindlist(reply, use.names = T, fill = T)
+z <- lapply(reply, na.omit)
 
 
-flat_replynum <- function(x) {
-    #list(replynum = x[["reply"]][["replynum"]], hotness = x[["reply"]][["hotness"]], qreply = x[["reply"]][["qreply"]])
+flatlist <- function(mylist) {
+    lapply(rapply(mylist, enquote, how = "unlist"), eval)
+}
+
+z <- lapply(res, flatlist) %>% rbindlist(use.names = T, fill = T)
+
+
+get_replynum <- function(x) {
     x[["reply"]][c("replynum", "hotness", "qreply")]
 }
-replynum <- lapply(res, flat_replynum) %>% rbindlist(use.names = T, fill = T, idcol = "rid")
+replynum <- lapply(res, get_replynum) %>% rbindlist(use.names = T, fill = T, idcol = "rid")
+
+
 
 
 l <- list(a = 1, b = 8)

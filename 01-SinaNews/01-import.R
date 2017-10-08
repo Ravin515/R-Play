@@ -7,12 +7,14 @@ flat_list <- function(nest.list) {
     lapply(rapply(nest.list, enquote, how = "unlist"), eval)
 }
 news <- data.table()
-while (!is.null(res <- iter$batch(size = 1e5))) {
+while (!is.null(res <- iter$batch(size = 1e2))) {
     chunk <- lapply(res, flat_list) %>% rbindlist(use.names = T, fill = T)
     news <- rbindlist(list(news, chunk), use.names = T, fill = T)
 }
+news <- news[, lapply(.SD, char2utf8)]
 rm(iter, res, chunk)
-
+# 使用fwrite写入csv文件
+fwrite(news, file = "news.csv")
 
 # reply：包含 news_id 与 reply 正文 ----
 conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
@@ -22,7 +24,13 @@ while (!is.null(res <- iter$batch(size = 1e5))) {
     chunk <- rbindlist(lapply(res, `[[`, "reply"))[["reply_content"]] %>% rbindlist(use.names = T, fill = T)
     reply <- rbindlist(list(reply, chunk), use.names = T, fill = T)
 }
+reply <- reply[, lapply(.SD, char2utf8)]
 rm(iter, res, chunk)
+# 使用fwrite写入csv文件
+
+
+
+
 
 
 

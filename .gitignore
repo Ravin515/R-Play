@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/01-SinaNews/news.cj.csv
+/01-SinaNews/reply.cj.csv
+/01-SinaNews/news.sample.csv
+/01-SinaNews/news.cj.csv.bak
+*.bak

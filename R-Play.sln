@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "01-SinaNews", "01-SinaNews\01-SinaNews.rxproj", "{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}"
 EndProject
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "02-MergeHedgeFund", "02-MergeHedgeFund\02-MergeHedgeFund.rxproj", "{6CCD1CEC-6975-4A38-9862-E82DDAB9CD0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +15,12 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{74497FBE-C8C9-44E6-BA6F-AB2A2C900B83}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6CCD1CEC-6975-4A38-9862-E82DDAB9CD0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CCD1CEC-6975-4A38-9862-E82DDAB9CD0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CCD1CEC-6975-4A38-9862-E82DDAB9CD0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CCD1CEC-6975-4A38-9862-E82DDAB9CD0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

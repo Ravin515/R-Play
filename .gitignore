@@ -264,3 +264,7 @@ __pycache__/
 /01-SinaNews/news.sample.csv
 /01-SinaNews/news.cj.csv.bak
 *.bak
+*.csv
+/02-MergeHedgeFund/HedgeFund/DZH
+/02-MergeHedgeFund/HedgeFund
+/02-MergeHedgeFund/HedgeFundData

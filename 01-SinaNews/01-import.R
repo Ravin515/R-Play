@@ -16,6 +16,7 @@ rm(iter, res, chunk)
 # 使用fwrite写入csv文件
 fwrite(news, file = "news.csv")
 
+
 # reply：包含 news_id 与 reply 正文 ----
 conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
 iter <- conn$iterate(query = '{}', field = '{"_id":0, "reply.reply_content":1, "news_id":1}')
@@ -27,10 +28,21 @@ while (!is.null(res <- iter$batch(size = 1e5))) {
 reply <- reply[, lapply(.SD, char2utf8)]
 rm(iter, res, chunk)
 # 使用fwrite写入csv文件
+fwrite(reply, file = "reply.csv")
 
 
 
+news.cj <- news[cmt_id.channel == "cj"]
 
+i <- 1
+n <- 10000
+while ((i - 1) * n < nrow(news.cj)) {
+    fwrite(news.cj[((i - 1) * n):min(i * n, nrow(news.cj))], file = str_c("news.cj.", i, ".csv"))
+    i <- i + 1
+}
+fwrite(news.cj[1:1000], file = "news.cj1.csv")
 
-
+news.cj.sample <- news.cj[1:1000]
+sv(news.cj.sample)
+save(news.cj.sample, file = c("news.cj.sample.Rdata"))
 

@@ -1,0 +1,2 @@
+politician <- fread("C:/Users/MrStylee/Desktop/Politician.csv", header = TRUE, encoding = "UTF-8")
+politician <- data.table(read.table("C:/Users/MrStylee/Desktop/Politician.csv", header = T, sep =",", fill = T))

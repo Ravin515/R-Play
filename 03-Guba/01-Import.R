@@ -34,14 +34,10 @@ set_empty_to_na <- function(x, null.as) {
     x
 }
 
-#make_post_reply <- function(batches) {
-    #lapply(batches, `[[`, "reply") %>% lapply(set_empty_to_na, null.as = list()) %>% lapply(rbindlist, fill = T, use.names = T) %>% rbindlist(use.names = T, fill = T)
-    #}
-
-
-make_post_reply <- function(one) {
-    reply <- one["reply"] %>% lapply(set_empty_to_na, null.as = list()) %>% lapply(rbindlist, fill = T, use.names = T) %>% rbindlist(use.names = T, fill = T)
-    post <- one$post_id %>% sapply(set_empty_to_na, null.as = NA, USE.NAMES = F)
+#batch
+make_post_reply <- function(batch) {
+    reply <-lapply(batch, `[[`, "reply") %>% lapply(set_empty_to_na, null.as = list()) %>% lapply(rbindlist, fill = T, use.names = T) %>% rbindlist(use.names = T, fill = T)
+    post <- lapply(batch, `[[`, "post_id") %>% sapply(set_empty_to_na, null.as = NA, USE.NAMES = F)
 
     if (!is.null(post)) {
         if (nrow(reply) == 0) {
@@ -54,9 +50,25 @@ make_post_reply <- function(one) {
     }
 }
 
-#z <- make_post_reply(res)
+##one
+#make_post_reply <- function(one) {
+    #reply <- one["reply"] %>% lapply(set_empty_to_na, null.as = list()) %>% lapply(rbindlist, fill = T, use.names = T) %>% rbindlist(use.names = T, fill = T)
+    #post <- one$post_id %>% sapply(set_empty_to_na, null.as = NA, USE.NAMES = F)
+
+    #if (!is.null(post)) {
+        #if (nrow(reply) == 0) {
+            #data.table(post.id = post)
+        #} else {
+            #data.table(post.id = post, reply)
+        #}
+    #} else {
+        #data.table()
+    #}
+#}
 
 replys <- data.table()
+res <- iter$batch(1e3)
+replys <- make_post_reply(res)
 while (!is.null(res <- iter$batch())) {
     chunk <- make_post_reply(res)
     replys <- rbindlist(list(chunk, replys), use.names = T, fill = T)

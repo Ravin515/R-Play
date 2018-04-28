@@ -13,6 +13,8 @@ Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "03-Guba", "03-Guba\03-Guba.
 EndProject
 Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "05-AdEconomics", "05-AdEconomics\05-AdEconomics.rxproj", "{FF2804CE-49BA-4D2E-9D4F-DF0EB88CC281}"
 EndProject
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "06-Testing", "06-Testing\06-Testing.rxproj", "{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FF2804CE-49BA-4D2E-9D4F-DF0EB88CC281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF2804CE-49BA-4D2E-9D4F-DF0EB88CC281}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF2804CE-49BA-4D2E-9D4F-DF0EB88CC281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

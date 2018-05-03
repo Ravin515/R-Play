@@ -80,10 +80,6 @@ rm(iter, res, chunk)
 fwrite(replys, file = "replys.csv")
 
 
-
-
-
-
 #import Guba UserInfo
 conn <- mongo(collection = 'CrawlerGubaUserInfo', db = 'test', url = "mongodb://localhost:27017")
 iter <- conn$iterate(query = '{}', field = '{"_id":0}')
@@ -98,3 +94,6 @@ while (!is.null(res <- iter$batch(size = 1e2))) {
 userinfo <- userinfo[, lapply(.SD, char2utf8)]
 rm(iter, res, chunk)
 fwrite(userinfo, file = "userinfo.csv")
+
+
+

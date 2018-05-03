@@ -35,3 +35,27 @@ t <- as.data.frame(m[sample(x), sample(y)])
 i <- sample(c(1:145), 1)
 se <- seq(i, i + 4, by = 1)
 t <- as.data.frame(m[se,])
+
+a <- ls("package:base", all = T)
+
+x <- 1
+h <- function() {
+    y <- 2
+    i <- function() {
+        z <- 3
+        c(x, y, z)
+    }
+    i()
+}
+h()
+rm(x, h)
+
+j <- function(x) {
+    y <- 2
+    function() {
+        c(x, y)
+    }
+}
+k <- j(1)
+k()
+rm(j, k)

@@ -4,7 +4,7 @@ iter <- conn$iterate(query = '{}', field = '{"_id":0, "post_id":1, "reply":1}')
 
 # 用于填充缺失值的函数。对iter提取之后，可能有些元素是NULL，由于NULL不能作为rbindlist的输入，所以需要把他改成空list
 # 注意，NULL，NA，list() 三个的length都是0，但他们是不同的东西！这个涉及到 R 关键的 object type，你一定要弄懂，否则下面的代码你看起来会云里雾里的
-set_empty_to_na <- function(x, null.as ) {
+set_empty_to_na <- function(x, null.as)) {
     if (length(x) == 0) { 
         if (is.null(x)) {
             x <- null.as

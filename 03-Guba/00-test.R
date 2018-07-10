@@ -44,3 +44,17 @@ while (!is.null(res <- iter$one())) {
     chunk <- make_post_reply(res)
     posts <- rbindlist(list(chunk, posts), use.names = T, fill = T)
 }
+r.posts <- fread("posts.csv", fill = T, encoding = "UTF-8")
+r.replys <- fread("replys.csv", fill = T, encoding = "UTF-8")
+
+a <- r.posts[1, 2, 3]
+b <- r.posts[1, 1]
+c <- r.posts[1]
+microbenchmark({
+earl.posts <- r.posts[, head(.SD, 1), by = .(guba_name)]
+}, times = 100)
+
+microbenchmark({
+earl.posts <- r.posts[, .SD[1], by = .(guba_name)]
+}, times = 100)
+

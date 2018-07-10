@@ -21,8 +21,6 @@ fwrite(posts, file = "posts.csv")
 conn <- mongo(collection = 'CrawlerGuba', db = 'test', url = 'mongodb://localhost:27017')
 iter <- conn$iterate(query = '{}', field = '{"_id":0, "reply":1, "post_id":1}')
 
-
-
 flat_reply <- function(ele) {
     if (!identical(ele[['reply']], list())) {
         reply <- ele[['reply']]
@@ -38,13 +36,14 @@ flat_reply <- function(ele) {
 
 reply <- data.table()
 while (!is.null(res <- iter$batch(size = 1e4))) {
-    chunk <- z[!(lapply(res, flat_reply) %>% lapply(is.null) %>% unlist())] %>% rbindlist(use.names = T, fill = T)
+    #chunk <- z[!(lapply(res, flat_reply) %>% lapply(is.null) %>% unlist())] %>% rbindlist(use.names = T, fill = T)
+    chunk <- lapply(res,flat_reply) %>% rbindlist(use.names = T, fill = T)
     reply <- rbindlist(list(chunk, reply), use.names = T, fill = T)
 }
 
 rm(iter, res, chunk)
 # 使用fwrite写入csv文件
-fwrite(replys, file = "replys.csv")
+fwrite(reply, file = "replys.csv")
 
 
 #import Guba UserInfo

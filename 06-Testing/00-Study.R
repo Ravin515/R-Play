@@ -59,3 +59,7 @@ j <- function(x) {
 k <- j(1)
 k()
 rm(j, k)
+
+l <- function(x) x+1
+f <- function() x + 1
+codetools :: findGlobals(f)

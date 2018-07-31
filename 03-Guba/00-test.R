@@ -44,8 +44,21 @@ while (!is.null(res <- iter$one())) {
     chunk <- make_post_reply(res)
     posts <- rbindlist(list(chunk, posts), use.names = T, fill = T)
 }
-r.posts <- fread("posts.csv", fill = T, encoding = "UTF-8")
-r.replys <- fread("replys.csv", fill = T, encoding = "UTF-8")
+r.posts <- fread("posts.csv", fill = T, na.string = "", encoding = "UTF-8")
+r.replys <- fread("replys.csv", fill = T, na.string = "", encoding = "UTF-8")
+r.posts <- r.posts[postnums != 0]
+r.posts[, .N]
+r.posts[guba_name == "ÂÝÎÆ¸Ö°É", .N]
+r.posts[guba_name == "ÂÝÎÆ¸Ö°É", unique(postnums)]
+r.posts[order(create_time), .SD[1], by = .(guba_name)]
+
+late.replys <- r.replys[, .SD[.N], keyby = .(post_id, reply_time)]
+r.replys <- r.replys[, reply_content := str_replace_all(reply_content, "<.*?>", "")]
+
+int.data <- r.replys[r.posts, on = .(post_id), nomatch = 0]
+int.data <- int.data[!is.na(reply_author)]
+int.data.1 <- r.posts[r.replys, ]
+    
 
 a <- r.posts[1, 2, 3]
 b <- r.posts[1, 1]
@@ -57,4 +70,7 @@ earl.posts <- r.posts[, head(.SD, 1), by = .(guba_name)]
 microbenchmark({
 earl.posts <- r.posts[, .SD[1], by = .(guba_name)]
 }, times = 100)
+
+r.posts[order(create_time), tag := sequence(.N), by = .(guba_name)]
+
 

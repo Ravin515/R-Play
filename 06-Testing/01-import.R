@@ -12,3 +12,5 @@ a<- iprt[, grp := str_extract(code, "\\d{2,2}")
     ][, ":="(surc = china / sumc, suri = italy / sumi), keyby = .(grp)
     ][, minsur := min(surc, suri), keyby = .(code)
     ][, summin := sum(minsur), keyby = .(grp)]
+
+

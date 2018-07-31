@@ -38,3 +38,6 @@ while (!is.null(res <- iter$batch(size = 1000))) {
     chunk <- lapply(res, flat_bio) %>% rbindlist(use.names = T, fill = T)
     bio <- rbindlist(list(bio, chunk), use.names = T, fill = T)
 }
+
+a <- fread("inspt.csv", fill = T, na.string = "", encoding = "UTF-8")
+b <- a[, .N, keyby = .(inspt_tag, inspt_title)]

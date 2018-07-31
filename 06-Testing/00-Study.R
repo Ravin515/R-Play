@@ -62,4 +62,28 @@ rm(j, k)
 
 l <- function(x) x+1
 f <- function() x + 1
-codetools :: findGlobals(f)
+codetools::findGlobals(f)
+
+x <- sample(replace = T, 20, x = c(1:10, NA))
+y <- runif(min = 0, max = 1, 20)
+cor(m = "k", y = y, u = "p", x = x)
+
+x <- 1:10
+get("x")
+"modify<-" <- function(x, position, value) { 
+    x[position] <- value
+    x
+}
+
+%function_name% #infix function
+"function_name<-" #replacement function
+
+# a replacement function that modifies a random location in vector
+"modify<-" <- function(x, position, value) {
+    position <- runif(1, 1, length(x))
+    x[position] <- value
+    x
+}
+
+modify(x, 1) <- 9
+

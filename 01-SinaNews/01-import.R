@@ -1,13 +1,13 @@
 library(mongolite)
 # news：包含除了回复正文以外的所有变量 ----
 # 使用1）iterate模式读取，2）使用rapply进行展平，速度比传统方式提高很多
-conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews', url = "mongodb://192.168.1.54:27017")
-iter <- conn$iterate(query = '{}', field = '{"_id":0, "reply.reply_content":0}')
+conn <- mongo(collection = 'CrawlerSinaNews', db = 'SinaNews-1809', url = "mongodb://localhost:27018")
+iter <- conn$iterate(query = '{"channel.id":"97"}', field = '{"_id":0, "reply.reply_content":0}')
 flat_list <- function(nest.list) {
     lapply(rapply(nest.list, enquote, how = "unlist"), eval)
 }
 news <- data.table()
-while (!is.null(res <- iter$batch(size = 1e2))) {
+while (!is.null(res <- iter$batch(size = 1e3))) {
     chunk <- lapply(res, flat_list) %>% rbindlist(use.names = T, fill = T)
     news <- rbindlist(list(news, chunk), use.names = T, fill = T)
 }
@@ -45,4 +45,3 @@ fwrite(news.cj[1:1000], file = "news.cj1.csv")
 news.cj.sample <- news.cj[1:1000]
 sv(news.cj.sample)
 save(news.cj.sample, file = c("news.cj.sample.Rdata"))
-

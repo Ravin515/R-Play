@@ -14,3 +14,18 @@ a<- iprt[, grp := str_extract(code, "\\d{2,2}")
     ][, summin := sum(minsur), keyby = .(grp)]
 
 
+a <- fread('C:/Users/MrStylee/Desktop/gupiao.csv', header = T, encoding = "UTF-8")
+setnames(a, 4:5, c("start", "end"))
+a[, start := gsub('([0-9]{4})([0-9]{2})([0-9{2}])', '\\1-\\2-\\3', start)
+    ][, end := gsub('([0-9]{4})([0-9]{2})([0-9{2}])', '\\1-\\2-\\3', end)
+    ][, start := as.Date(start, "%Y-%m-%d")
+    ][, end := as.Date(end, "%Y-%m-%d")
+    ][, startquarter := as.Date(cut(start, "quarter"))
+    ][, endquarter := as.Date(cut(end, "quarter"))]
+    #][, startquarter := lubridate::quarter(start, with_year = TRUE)
+    #][, endquarter := lubridate::quarter(end, with_year = TRUE)]
+
+
+int <- a[a[, .(date = seq(min(startquarter), max(endquarter), by = "quarter")), keyby = .(基金经理, 证券代码)], on = .(基金经理, 证券代码), nomatch = NA]
+
+a <- fread('C:/Users/MrStylee/Desktop/shida.csv', header = T, encoding = "UTF-8")

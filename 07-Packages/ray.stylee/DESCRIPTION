@@ -1,26 +1,26 @@
 Package: ray.stylee
-Title: What the Package Does (one line, title case)
+Title: Some essential packages and original function for me  
 Version: 0.1.0
 Authors@R: person("Ray", "Stylee", email = "ray.stylee@example.com", role = c("aut", "cre"))
 Description: A collection of my data processing routines.
 Depends: R (>= 3.3.0),
-		devtools,
-		doParallel,
-		PerformanceAnalytics,
-		stargazer,
-		microbenchmark,
-		stringr,
-		dplyr,
-		ggplot2,
-		lubridate,
-		data.table (>= 1.10.4),
-		pryr,
-		mongolite£¬
-		lfe,
-		Matrix,
-		survival,
-		GGally,
-		quanteda
+	devtools,
+	doParallel,
+	PerformanceAnalytics,
+	stargazer,
+	microbenchmark,
+	stringr,
+	dplyr,
+	ggplot2,
+	lubridate,
+	data.table (>= 1.10.4),
+	pryr,
+	mongolite£¬
+	lfe,
+	Matrix,
+	survival,
+	GGally,
+	quanteda
 License: MIT
 Encoding: UTF-8
 LazyData: true

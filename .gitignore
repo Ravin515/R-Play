@@ -269,3 +269,21 @@ __pycache__/
 /02-MergeHedgeFund/HedgeFund
 /02-MergeHedgeFund/HedgeFundData
 *.Rdata
+/06-Testing/0 启动（上交所+深交所 2010.3.31）.pdf
+/06-Testing/1 第一次扩容（上交所， 2011.12.5）.pdf
+/06-Testing/1 第一次扩容（深交所， 2011.12.5）.pdf
+/06-Testing/2 第二次扩容（上交所， 2013.1.31）.pdf
+/06-Testing/2 第二次扩容（深交所， 2013.1.31）.pdf
+/06-Testing/3 第三次扩容（上交所， 2013.9.16）.pdf
+/06-Testing/3 第三次扩容（深交所， 2013.9.16）.pdf
+/06-Testing/4 第四次扩容（上交所， 2014.9.22）.pdf
+/06-Testing/4 第四次扩容（深交所， 2014.9.22）.pdf
+/06-Testing/5 第五次扩容（上交所， 2016.12.2）.pdf
+/06-Testing/5 第五次扩容（深交所， 2016.12.2）.pdf
+/06-Testing/6 第六次扩容（上交所， 2017.3.20）.pdf
+/06-Testing/6 第六次扩容（深交所， 2017.3.20）.pdf
+/06-Testing/hebing.dta
+/06-Testing/HLD_Contrshr.txt
+/06-Testing/HLD_Shareholders.txt
+*.txt
+/06-Testing/清洗好的数据.zip

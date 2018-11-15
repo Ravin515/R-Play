@@ -13,9 +13,9 @@ Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "03-Guba", "03-Guba\03-Guba.
 EndProject
 Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "05-AdEconomics", "05-AdEconomics\05-AdEconomics.rxproj", "{FF2804CE-49BA-4D2E-9D4F-DF0EB88CC281}"
 EndProject
-Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "06-Testing", "06-Testing\06-Testing.rxproj", "{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}"
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "00-Testing", "06-Testing\00-Testing.rxproj", "{8D4FAF22-5366-4A7A-A62D-6C6B51DDF69F}"
 EndProject
-Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "07-Packages", "07-Packages\07-Packages.rxproj", "{EC3E5680-F8E9-489F-9806-78403D14AA0D}"
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "06-Packages", "07-Packages\06-Packages.rxproj", "{EC3E5680-F8E9-489F-9806-78403D14AA0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -87,3 +87,40 @@ get("x")
 
 modify(x, 1) <- 9
 
+y <- function() {
+    y <- ls("package:base", all.names = T)
+    y
+}
+y()
+y("package:base")
+
+j <- function(x) {
+    y <- 2
+    function() {
+        c(x, y)
+    }
+}
+k <- j(1)
+k()
+
+"(" <- function(e1) { 
+    if (is.numeric(e1) && runif(1) < 0.1) {
+        e1 + 1
+    } else {
+    e1
+    }
+}
+replicate(100, (1 + 2))
+rm("(")
+
+f <- function(x) {
+    f <- function(x) {
+        f <- function(x) {
+            x ^ 2
+        }
+        f(x) + 1
+    }
+    f(x) * 2
+}
+f(10)
+

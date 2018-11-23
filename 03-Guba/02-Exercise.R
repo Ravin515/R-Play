@@ -9,7 +9,7 @@ r.posts[!is.na(post_id), .N]
 r.posts[guba_name == "螺纹钢吧", .N > unique(postnums)]
 earl.posts <- r.posts[order(create_time), .SD[1], keyby = .(guba_name)]
 # Q3
-late.replys <- r.replys[order(post_id, reply_time), .SD[.N], keyby = .(post_id, reply_time)]
+late.replys <- r.replys[order(post_id, reply_time), .SD[.N]]
 r.replys[, reply_content := str_replace_all(reply_content, "<.+>", "")]
 # Q4
 int.data <- r.replys[r.posts, on = .(post_id), nomatch = 0]

@@ -3,11 +3,11 @@ library(stringr)
 library(lubridate)
 library(dplyr)
 
-fama <- fread("fama.csv", encoding = "UTF-8")
+fama <- fread("FamaXiao.csv", encoding = "UTF-8")
 setnames(fama, 2, "date")
 fama <- fama[, date := str_c(date, "-01") %>% as.Date("%Y-%m-%d")
     ][, Stkcd := str_pad(Stkcd, 6, "left", "0")
-    ][, tag := year(date), keyby = Stkcd
+    ][, tag := year(date)%>% as.double(), keyby = Stkcd
     ][order(date, Stkcd), tag := tag - 1995
     ][!is.na(rt) & !is.na(HML) & !is.na(SMB) & !is.na(MOM) & !is.na(EMR)]
 

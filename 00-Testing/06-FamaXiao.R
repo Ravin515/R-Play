@@ -1,4 +1,4 @@
- library(data.table)
+library(data.table)
 library(stringr)
 library(lubridate)
 library(dplyr)
@@ -16,7 +16,7 @@ for (i in 5:20) {
     reg.roll[[i]] <- fama[tag >= i - 4 & tag <= i, {
         I <- lm(rt ~ HML + SMB + MOM + EMR) %>% coef() %>% c(tag = tag[i]) %>% as.list()
     },
-    keyby = .(Stkcd)]
+    keyby = .(Stkcd)] 
     rbindlist(reg.roll)
 }
 

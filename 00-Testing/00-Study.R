@@ -124,3 +124,13 @@ f <- function(x) {
 }
 f(10)
 
+f <- function() 1
+g <- function() 2
+class(g) <- "function"
+class(f)
+class(g)
+length.function <- function(x) "function"
+length(f)
+length(g)
+# when use length function
+# otype() helps to distinguish between the behaviour of f and g

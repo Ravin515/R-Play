@@ -3,7 +3,7 @@ library(stringr)
 library(lubridate)
 library(dplyr)
 
-fama <- fread("FamaXiao.csv", encoding = "UTF-8")
+fama <- fread("fama.csv", encoding = "UTF-8")
 setnames(fama, 2, "date")
 fama <- fama[, date := str_c(date, "-01") %>% as.Date("%Y-%m-%d")
     ][, Stkcd := str_pad(Stkcd, 6, "left", "0")

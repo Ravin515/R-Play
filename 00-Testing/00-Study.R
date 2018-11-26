@@ -77,6 +77,16 @@ get("x")
 
 %function_name% #infix function
 "function_name<-" #replacement function
+`%paste%` <- function(x, y) str_c(x, y)
+"a" %paste% "b"
+
+`second<-` <- function(x, value) {
+    x[2] <- value
+    x
+}
+x <- 1:10
+second(x) <- 5L
+x
 
 # a replacement function that modifies a random location in vector
 "modify<-" <- function(x, position, value) {

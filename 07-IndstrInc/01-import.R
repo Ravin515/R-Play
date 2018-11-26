@@ -16,3 +16,7 @@ sqlTables(mydb, tableName = "qy03")
 res <- sqlFetch(mydb, "qy03") %>% as.data.table()
 
 library(DBI)
+library(odbc)
+cn <- dbConnect(odbc::odbc(), dsn = "2003")
+cn <- dbConnect(odbc::odbc(), DBQ = "D:/code/r-play/07-indstrinc/2003.mdb")
+cn <- dbConnect(drv = odbc :: odbc(), dsn = "2003")

@@ -32,7 +32,7 @@ stst.in <- stat.desc(stst.in)
 # Q6.3
 library(dplyr)
 r.posts[, cor.test(replynum, readnum)]
-b <- r.posts[, lm(replynum ~ readnum)] %>% summary() %>% list() %>% lapply(`[[`, "coefficients") %>% lapply(`[`, c(2,8)) %>% unlist()
+b <- r.posts[, lm(replynum ~ readnum)] %>% summary()  %>% list() %>% lapply(`[[`, "coefficients") %>% lapply(`[`, c(2,8)) %>% unlist() 
 post.reg <- r.posts[, .(coef = coef(lm(replynum ~ readnum))[2], p.value = lm(replynum ~ readnum) %>% summary() %>% list() %>% lapply(`[[`, "coefficients") %>% lapply(`[`, 8) %>% unlist()), keyby = .(guba_name)
     ][p.value < 0.05, .N]
 # Q6.4

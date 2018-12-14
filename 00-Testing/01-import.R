@@ -28,6 +28,5 @@ a[, start := gsub('([0-9]{4})([0-9]{2})([0-9{2}])', '\\1-\\2-\\3', start)
 
 int <- a[a[, .(date = seq(min(startquarter), max(endquarter), by = "quarter")), keyby = .(基金经理, 证券代码)], on = .(基金经理, 证券代码), nomatch = NA]
 
-a <- fread('C:/Users/MrStylee/Desktop/shida.csv', header = T, encoding = "UTF-8")
-
-a <- fread("biography.csv", encoding = "UTF-8")
+DT <- fread("wind_Dividend.csv", encoding = "UTF-8", na.strings = "")
+DT[, colnames(.SD[, 3:34]) := lapply(.SD[, 3:34], as.Date)]

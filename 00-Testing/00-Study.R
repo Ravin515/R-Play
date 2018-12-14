@@ -144,3 +144,87 @@ length(f)
 length(g)
 # when use length function
 # otype() helps to distinguish between the behaviour of f and g
+
+# Chapter 7 ENVIRONMENT
+# Exercises
+# Q1
+is.baseenv <- function(x) identical(x, baseenv())
+is.emptyenv <- function(x) identical(x, emptyenv())
+is.bsanstr <- function(x, env = parent.frame()) {
+    if (is.baseenv(env)) {
+        return("True")
+    } else {
+        is.bsanstr(x, env = parent.env(env))
+    }    
+}
+is.eptanstr <- function(x, env = parent.frame()) {
+    if (is.emptyenv(env)) {
+        return("True")
+    } else {
+        is.eptanstr(x, env = parent.env(env))
+    }
+}
+
+is.bsanstr(globalenv)
+is.eptanstr(globalenv)
+
+srch.all <- function(env = parent.frame()) {
+    pkges <- vector(mode = "character")
+    while (!identical(env, emptyenv())) {
+        pkges <- rbind(pkges, environmentName(env))
+        srch.all(env = parent.env(env))
+    } 
+    pkges
+}
+srch.all()
+
+# Q2
+ray.get <- function(name, en, env = parent.frame()) {
+    stopifnot(is.character(name), is.environment(en), length(name) == 1)
+    if (identical(env, emptyenv())) {
+        stop("Can't find ", name, call. = FALSE)
+    }
+    if (exists(name, en, inherits = FALSE)) {
+        eval(parse(text = name))
+    } else {
+        ray.get(name, parent.env(en))
+    }
+}
+ray.get("b", globalenv())
+
+#Q3
+fget <- function(name, en, env = parent.frame(), inherits = TRUE) {
+    stopifnot(is.character(name), is.environment(en), length(name) == 1)
+    if (identical(env, emptyenv())) {
+        stop("Can't find ", name, call. = FALSE)
+    }
+    if (exists(name, en, inherits = inherits)) {
+        if (is.function(eval(parse(text = name)))) {
+            eval(parse(text = name))
+        } 
+        else {
+            fget(name, parent.env(en))
+        }
+    } else {
+        fget(name, parent.env(en))
+    }
+}
+fget("get", baseenv())
+
+#Q4
+ray.exists <- function(name, env) {
+    stopifnot(is.character(name), is.environment(env), length(name) == 1)
+    if (identical(env, emptyenv())) {
+        stop("Can't find", name, call. = FALSE)
+    }
+    if (name %in% ls(envir = env)) {
+        TRUE
+    } else {
+        FALSE
+    }
+}
+ray.exists("b", baseenv())
+
+f <- function(x) x + y
+environment(f) <- emptyenv()
+environment(f)

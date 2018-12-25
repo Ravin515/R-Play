@@ -1,7 +1,7 @@
 library(data.table)
 library(stringr)
 library(forecast)
-library(magrittr)
+library(dplyr)
 
 sample <- fread("fxishrvmonth.csv", fill = T, na.string = "", encoding = "UTF-8")
 sample[nchar(date) > 6, date := str_replace(date, "/", "-")
@@ -25,4 +25,4 @@ ros <- int[, dev := (rvfxi - fitted.rvfxi) ^ 2
     ][!is.na(dev), sum.dev := sum(dev)
     ][, sum.mean := cummean(rvfxi)
     ][!is.na(dev), dev.dnt := sum((rvfxi - sum.mean) ^ 2)
-    ][, 1 - (sum.dev / dev.dnt)]
+    ][!is.na(dev), unique(1 - (sum.dev / dev.dnt))]

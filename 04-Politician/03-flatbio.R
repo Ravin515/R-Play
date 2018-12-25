@@ -44,3 +44,4 @@ fwrite(bio, file = "biography.csv")
 #a <- data.table(x = 1, y = 2)
 #a[2 * (1:.N) - 1]
 #sample()
+

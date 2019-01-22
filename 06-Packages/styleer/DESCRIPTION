@@ -15,7 +15,7 @@ Depends: R (>= 3.3.0),
 	lubridate,
 	data.table (>= 1.10.4),
 	pryr,
-	mongolite£¬
+	mongolite,
 	lfe,
 	Matrix,
 	survival,
@@ -24,3 +24,4 @@ Depends: R (>= 3.3.0),
 License: MIT
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1

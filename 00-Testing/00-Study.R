@@ -224,3 +224,7 @@ ray.exists <- function(name, env) {
     }
 }
 ray.exists("b", baseenv())
+
+f <- function(x) x + y
+environment(f) <- emptyenv()
+environment(f)

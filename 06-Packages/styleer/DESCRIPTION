@@ -1,7 +1,7 @@
 Package: styleer
 Title: Some essential packages and original function for me  
 Version: 0.1.0
-Authors@R: person("Ray", "Stylee", email = "ray.stylee@example.com", role = c("aut", "cre"))
+Authors@R: person("Ray", "Stylee", email = "ray.stylee@outlook.com", role = c("aut", "cre"))
 Description: A collection of my data processing routines.
 Depends: R (>= 3.3.0),
 	devtools,

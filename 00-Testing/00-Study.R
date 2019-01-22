@@ -224,3 +224,31 @@ ray.exists <- function(name, env) {
     }
 }
 ray.exists("b", baseenv())
+
+# chapter 8 
+message2error <- function(code) {
+    withCallingHandlers(code, message = function(e) stop(e))
+}
+message2error <- function(code) {
+    tryCatch(code, message = function(e) stop(e))
+}
+
+# Improve the function so that (1) it returns a useful error message if n is not a vector, (2) it has reasonable behaviour when n is 0 or longer than x.
+lag <- function(x, n = 1L) {
+    xlen <- length(x)
+    c(rep(NA, n), x[seq_len(xlen - n)])
+}
+
+lag <- function(x, n = 1L) {
+    stopifnot(is.vector(x))
+    xlen <- length(x)
+    if (n > xlen) {
+        stop("The length of lagging is longer than length of vector")
+    }
+    if (n == 0) {
+        c(x, x)
+    } 
+    else {
+        c(rep(NA, n), x[seq_len(xlen - n)])
+    }
+}

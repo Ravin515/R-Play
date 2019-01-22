@@ -6,7 +6,6 @@ Description: A collection of my data processing routines.
 Depends: R (>= 3.3.0),
 	devtools,
 	doParallel,
-	PerformanceAnalytics,
 	stargazer,
 	microbenchmark,
 	stringr,

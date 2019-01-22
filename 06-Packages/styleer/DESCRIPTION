@@ -1,4 +1,4 @@
-Package: ray.stylee
+Package: styleer
 Title: Some essential packages and original function for me  
 Version: 0.1.0
 Authors@R: person("Ray", "Stylee", email = "ray.stylee@example.com", role = c("aut", "cre"))

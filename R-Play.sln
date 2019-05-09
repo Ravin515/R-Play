@@ -19,6 +19,8 @@ Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "06-Packages", "06-Packages\
 EndProject
 Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "07-IndstrInc", "07-IndstrInc\07-IndstrInc.rxproj", "{7DC1A08E-E908-49E1-BE03-E04304CAD59F}"
 EndProject
+Project("{DA7A21FA-8162-4350-AD77-A8D1B671F3ED}") = "08-Netease", "08-Netease\08-Netease.rxproj", "{FABF8D4D-15AF-44B3-A56D-A6C9C72971CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{7DC1A08E-E908-49E1-BE03-E04304CAD59F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DC1A08E-E908-49E1-BE03-E04304CAD59F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DC1A08E-E908-49E1-BE03-E04304CAD59F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FABF8D4D-15AF-44B3-A56D-A6C9C72971CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABF8D4D-15AF-44B3-A56D-A6C9C72971CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABF8D4D-15AF-44B3-A56D-A6C9C72971CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABF8D4D-15AF-44B3-A56D-A6C9C72971CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

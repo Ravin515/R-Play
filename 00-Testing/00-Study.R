@@ -228,3 +228,37 @@ ray.exists("b", baseenv())
 f <- function(x) x + y
 environment(f) <- emptyenv()
 environment(f)
+
+
+newton_cotes <- function(coef, open = FALSE) {
+    n <- length(coef) + open
+    function(f, a, b) {
+        pos <- function(i) a + i * (b - a) / n
+        points <- pos(seq.int(0, length(coef) - 1))
+        (b - a) / sum(coef) * sum(f(points) * coef)
+    }
+}
+
+composite <- function(f, a, b, n = 10, rule) {
+    points <- seq(a, b, length = n + 1)
+    area <- 0
+    for (i in seq_len(n)) {
+        area <- area + rule(f, points[i], points[i + 1])
+    }
+    area
+}
+
+trapezoid <- newton_cotes(c(1, 1))
+midpoint <- newton_cotes(1, open = TRUE)
+simpson <- newton_cotes(c(1, 4, 1))
+boole <- newton_cotes(c(7, 32, 12, 32, 7))
+milne <- newton_cotes(c(2, -1, 2), open = TRUE)
+
+expt1 <- expand.grid(n = 1:50, rule = c("midpoint", "trapezoid", "simpson", "boole", "milne"), stringsAsFactors = FALSE)
+run_expt <- function(n, rule) {
+    composite(sin, 1 / (pi ^ 2), 2*pi, n = n, rule = match.fun(rule))
+}
+library(plyr)
+res1 <- mdply(expt1, run_expt)
+library(ggplot2)
+qplot(n, V1, data = res1, colour = rule, geom = "line")

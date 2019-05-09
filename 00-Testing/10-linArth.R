@@ -1,5 +1,5 @@
 data <- 1:16
-data_random <- data.table(replicate(1e7, sample(data)))
+data_random <- data.table(replicate(1e6, sample(data)))
 random <- function(d) {
     x <- seq(from = 2, to = length(d), by = 2)
     b <- function(x) { 

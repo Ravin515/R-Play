@@ -13,3 +13,15 @@ cj[, ':='(V1 = NULL, i.V1 = NULL, ald_supine_prescribe_time_match = NULL)
 setnames(cj, c(2, 4), c("ald_supine_prescribe_time_remark", "ald_supine_prescribe_time_value"))
 cj[, uniqueN(id)]
 fwrite(cj, "cj.csv")
+
+library(data.table)
+library(stringr)
+setwd("C:/Users/Mr.Stylee/Documents/WeChat Files/ravin515/Files")
+mm <- fread("mm.csv", encoding = "UTF-8")
+mm <- mm[, sample_time := str_replace_all(sample_time, "[TZ]", " ")
+    ][, sample_time := as.POSIXct(sample_time, format = "%Y-%m-%d %H:%M:%S")
+    ][order(label, sample_time)
+    ][, n := ifelse(.N > 1, 1, 0), by = .(label)
+    ][, cumn := cumsum(n), by = .(label)
+    ][, status := ifelse(cumn == .N, "post", ifelse(cumn == 1, "pre", "no")), by = .(label)
+    ][, ':='(cumn = NULL, n = NULL)]

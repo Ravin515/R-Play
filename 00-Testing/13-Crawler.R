@@ -1,4 +1,6 @@
 library(rvest)
+library(data.table)
+library(stringr)
 # pull request
 url <- 'http://car.auto.ifeng.com/'
 urlpage <- read_html(url)

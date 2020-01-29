@@ -1,7 +1,7 @@
 library(mongolite)
 
 
-conn <- mongo(collection = 'CrawlerChinaVitae', db = 'test', url = "mongodb://localhost:27017")
+conn <- mongo(collection = 'chn_bio', db = 'ChinaVitae-1912', url = "mongodb://localhost:27017")
 iter <- conn$iterate(query = '{}', field = '{"_id":0}')
 
 flat_careers <- function(ele) {

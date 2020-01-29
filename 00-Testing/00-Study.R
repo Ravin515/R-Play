@@ -224,4 +224,3 @@ ray.exists <- function(name, env) {
     }
 }
 ray.exists("b", baseenv())
-
